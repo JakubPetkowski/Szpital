@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from user_profile.models import UserProfile
 # Create your views here.
 
+# This view for check appointments for user patient
 class AppointmentsForAPatientView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     redirect_field_name = 'account:login'
@@ -15,7 +16,7 @@ class AppointmentsForAPatientView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Appointment.objects.filter(patient=self.request.user)
 
-
+# This view for check appointments for user doctor
 class AppointmentsForADoctorView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     redirect_field_name = 'account:login'
@@ -23,7 +24,7 @@ class AppointmentsForADoctorView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Appointment.objects.filter(doctor=self.request.user)
 
-
+# This view for check medical history
 class MedicalHistoryView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     redirect_field_name = 'account:login'
@@ -31,7 +32,7 @@ class MedicalHistoryView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Prescription.objects.filter(patient=self.request.user)
 
-
+# This view for check perscription list
 class PrescriptionListView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     redirect_field_name = 'account:login'
@@ -39,7 +40,7 @@ class PrescriptionListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Prescription.objects.filter(doctor=self.request.user)
 
-
+# This view after login for creating persciption for patient by doctor
 @login_required(login_url='/login/')
 def PrescriptionCreateView(request):
     if request.method == 'POST':
@@ -53,7 +54,7 @@ def PrescriptionCreateView(request):
         form = PrescriptionForm()
     return render(request, 'appointment/prescription_create.html', {'form': form})
 
-
+# This view after login for creating appointment
 @login_required(login_url='/login/')
 def AppointmentCreateView(request):
     if request.method == 'POST':
@@ -66,7 +67,7 @@ def AppointmentCreateView(request):
         form = AppointmentForm()
     return render(request, 'appointment/appointment_create.html', {'form': form})
 
-
+# This view after login for create payment status
 @login_required(login_url='/login/')
 def rdashboard(request):
     if request.method == "GET" and request.user.user_type == "R":
@@ -79,7 +80,7 @@ def rdashboard(request):
         }
         return render(request, 'appointment/r_dashboard.html', context=context)
 
-
+# This view after login for seeing dashboard by hr
 @login_required(login_url='/login/')
 def hrdashboard(request):
     if request.method == "GET" and request.user.user_type == "HR":
@@ -91,7 +92,7 @@ def hrdashboard(request):
         }
         return render(request, 'appointment/hr_dashboard.html', context=context)
 
-
+# This view after login for hr
 @login_required(login_url='/login/')
 def hraccounting(request):
     if request.method == "GET" and request.user.user_type == "HR":
@@ -101,7 +102,7 @@ def hraccounting(request):
         }
         return render(request, 'appointment/accounting.html', context=context)
 
-
+# This view after login for patient check payments
 @login_required(login_url='/login/')
 def pateintpayments(request):
     if request.method == "GET":

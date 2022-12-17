@@ -9,6 +9,8 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 # Create your views here.
+
+#This view for creating Patient Profile as a User
 @login_required(login_url='/login/')
 def CreateUserProfile(request):
     if request.method == 'POST':
@@ -32,7 +34,7 @@ def CreateUserProfile(request):
         form = ProfileUpdateForm()
     return render(request, 'user_profile/profile_create.html', {'form': form})
 
-
+#this view for updating information for user profile
 @login_required(login_url='/login/')
 def UpdatedUserProfile(request):
     user = request.user
@@ -46,7 +48,7 @@ def UpdatedUserProfile(request):
         form = ProfileUpdateForm(instance=profile)
     return render(request, 'user_profile/profile.html', {'form': form, 'user':user})
 
-
+# This View for update patient profile Primary Key
 @login_required(login_url='/login/')
 def UpdatedUserProfilePk(request, pk):
     user = User.objects.get(pk=pk)
@@ -60,7 +62,7 @@ def UpdatedUserProfilePk(request, pk):
         form = ProfileUpdateForm(instance=profile)
     return render(request, 'user_profile/profile.html', {'form': form, 'user':user})
 
-
+# This View for update doctor profile Primary Key
 @login_required(login_url='/login/')
 def UpdatedDocProfilePk(request, pk):
     user = User.objects.get(pk=pk)
@@ -74,7 +76,7 @@ def UpdatedDocProfilePk(request, pk):
         form = DoctorProfileForm(instance=profile)
     return render(request, 'user_profile/profile.html', {'form': form, 'user':user})
 
-
+# This View for delete patient profile Primary Key
 @login_required(login_url='/login/')
 def DeleteUserProfilePk(request, pk):
     user = User.objects.get(pk=pk)
@@ -85,7 +87,7 @@ def DeleteUserProfilePk(request, pk):
     else:
         return render(request, 'user_profile/profile_delete.html', {'user':user})
 
-
+# This View for delete Primary Key
 @login_required(login_url='/login/')
 def DeleteDocProfilePk(request, pk):
     print("hello")

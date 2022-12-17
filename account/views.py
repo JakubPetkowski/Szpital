@@ -5,6 +5,8 @@ from django.shortcuts import redirect, render
 from .forms import * 
 from user_profile.models import UserProfile
 
+
+#Tis view for showing homepage home/aboutus/contact/signup button for Users
 def home(request):
     return render(request, 'account/home.html')
 
@@ -14,6 +16,8 @@ def aboutus(request):
 def contact(request):
     return render(request, 'account/contact.html')
 
+
+#This View for showing information needed to create user profile and signup
 def SignUp(request):
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
